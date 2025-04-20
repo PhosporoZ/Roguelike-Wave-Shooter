@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://e3ilrxmh8s1x"]
+
+[ext_resource type="Texture2D" uid="uid://ck6e6aw3xbvcr" path="res://player/weapon/Bullet_Rev.png" id="1_1n4t3"]
+[ext_resource type="Script" uid="uid://bxjuxrsf5nsl8" path="res://scripts/rev_bullet.gd" id="1_5ve2t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ve2t"]
+size = Vector2(10, 7)
+
+[node name="RevBullet" type="Area2D"]
+top_level = true
+scale = Vector2(0.78, 0.58)
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_5ve2t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_5ve2t")
+
+[node name="BulletRev" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_1n4t3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

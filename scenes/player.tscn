@@ -1,0 +1,150 @@
+[gd_scene load_steps=13 format=3 uid="uid://7cxhp1eq6sw3"]
+
+[ext_resource type="Texture2D" uid="uid://bmwmrptjk6tp" path="res://player/Gunslinger_Dude-Sheet.png" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://cdee3bhsqeww3" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://drahm4xu68s8o" path="res://scenes/arms_gun.tscn" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://bjhrtiqgkqmno" path="res://scenes/healthbar.tscn" id="4_dqkch"]
+[ext_resource type="PackedScene" uid="uid://d0yngtdv5c3nx" path="res://scenes/playerstats.tscn" id="5_qlg0r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(10, 20.5)
+
+[sub_resource type="Animation" id="Animation_qlg0r"]
+resource_name = "Hurt"
+length = 0.15
+step = 0.033
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GunslingerDude-sheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_g2els"]
+resource_name = "Idle"
+length = 0.9
+loop_mode = 1
+step = 0.033
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GunslingerDude-sheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.466667, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_qhqgy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GunslingerDude-sheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_dqkch"]
+resource_name = "Run"
+length = 0.59
+loop_mode = 1
+step = 0.033
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GunslingerDude-sheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tuyoq"]
+_data = {
+&"Hurt": SubResource("Animation_qlg0r"),
+&"Idle": SubResource("Animation_g2els"),
+&"RESET": SubResource("Animation_qhqgy"),
+&"Run": SubResource("Animation_dqkch")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlg0r"]
+radius = 5.0
+height = 14.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_g2els")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 3
+position = Vector2(0, -0.25)
+shape = SubResource("RectangleShape2D_g2els")
+
+[node name="GunslingerDude-sheet" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -4)
+scale = Vector2(1.11311, 0.962008)
+texture = ExtResource("1_3vyb7")
+hframes = 7
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+limit_left = 0
+limit_top = 0
+limit_right = 736
+limit_bottom = 448
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_tuyoq")
+}
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CapsuleShape2D_qlg0r")
+debug_color = Color(0.807712, 0.392296, 0.36192, 0.42)
+
+[node name="DamageTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="Arms_Gun" parent="." instance=ExtResource("3_qhqgy")]
+position = Vector2(1, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Healthbar" parent="CanvasLayer" instance=ExtResource("4_dqkch")]
+unique_name_in_owner = true
+offset_left = 36.0
+offset_top = 33.0
+offset_right = 375.0
+offset_bottom = 67.0
+
+[node name="Playerstats" parent="." instance=ExtResource("5_qlg0r")]
+
+[node name="HealthRegenTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_exited" from="Hurtbox" to="." method="_on_hurtbox_body_exited"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
+[connection signal="timeout" from="HealthRegenTimer" to="." method="_on_health_regen_timer_timeout"]

@@ -1,0 +1,79 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6ml256d1ccax"]
+
+[ext_resource type="Script" uid="uid://k8huq12nt4xk" path="res://scripts/options_menu.gd" id="1_bdakn"]
+[ext_resource type="FontFile" uid="uid://bieeu1mypgls7" path="res://fonts/PixelOperator8-Bold.ttf" id="1_dpnyk"]
+
+[node name="Options_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bdakn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -154.0
+offset_top = -119.0
+offset_right = 154.0
+offset_bottom = 119.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="Options" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("1_dpnyk")
+theme_override_font_sizes/font_size = 32
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GraphicsQualityLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("1_dpnyk")
+theme_override_font_sizes/font_size = 20
+text = "Graphics"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GraphicsQualityDropdown" type="OptionButton" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SoundEnabledLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("1_dpnyk")
+theme_override_font_sizes/font_size = 20
+text = "Sound"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SoundToggleButton" type="CheckButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Exit_Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("1_dpnyk")
+theme_override_font_sizes/font_size = 26
+text = "Exit"
+
+[connection signal="pressed" from="VBoxContainer/Exit_Button" to="." method="_on_exit_button_pressed"]

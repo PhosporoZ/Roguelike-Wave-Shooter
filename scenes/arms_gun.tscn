@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://drahm4xu68s8o"]
+
+[ext_resource type="Script" uid="uid://csj4mo00gkoue" path="res://scripts/arms_gun.gd" id="1_gh1f8"]
+[ext_resource type="Texture2D" uid="uid://b44eag8g5i7r6" path="res://player/weapon/Arms.png" id="1_l78e5"]
+[ext_resource type="Texture2D" uid="uid://dofm7r1lr36b2" path="res://player/weapon/Pixel_Revolver.png" id="2_gh1f8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l78e5"]
+radius = 59.0
+
+[node name="Arms_Gun" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_gh1f8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_l78e5")
+
+[node name="Pivot" type="Marker2D" parent="."]
+
+[node name="Arms" type="Sprite2D" parent="Pivot"]
+texture_filter = 1
+scale = Vector2(0.86, 0.86)
+texture = ExtResource("1_l78e5")
+
+[node name="PixelRevolver" type="Sprite2D" parent="Pivot"]
+texture_filter = 1
+position = Vector2(7, 1)
+scale = Vector2(0.57, 0.57)
+texture = ExtResource("2_gh1f8")
+
+[node name="ShootPoint" type="Marker2D" parent="Pivot/PixelRevolver"]
+unique_name_in_owner = true
+position = Vector2(8, -4)
+scale = Vector2(2.17391, 2.17391)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

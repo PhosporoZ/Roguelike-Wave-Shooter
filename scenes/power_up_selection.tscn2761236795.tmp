@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=3 uid="uid://bf60qompjqixk"]
+
+[ext_resource type="Script" uid="uid://cf11r7dtuk5u1" path="res://scripts/power_up_selection.gd" id="1_2ulux"]
+[ext_resource type="Texture2D" uid="uid://cglq8cuhw3opq" path="res://assets/Icons/Attackspeed_icon.png" id="1_cq2xt"]
+[ext_resource type="Texture2D" uid="uid://q2emm82npqdl" path="res://assets/Icons/Crit-Icon.png" id="2_2ulux"]
+[ext_resource type="Texture2D" uid="uid://dd6hiu8vqewjn" path="res://assets/Icons/Damage-Icon.png" id="3_ul675"]
+
+[node name="PowerUpSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2ulux")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -336.0
+offset_top = -194.0
+offset_right = 336.0
+offset_bottom = 194.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 23
+
+[node name="Powerup1" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="TextureButton1" type="TextureButton" parent="HBoxContainer/Powerup1"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("1_cq2xt")
+stretch_mode = 0
+
+[node name="Label1" type="Label" parent="HBoxContainer/Powerup1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0.1, 0.1)
+layout_mode = 2
+size_flags_vertical = 2
+text = "description of the powerup"
+autowrap_mode = 3
+
+[node name="Powerup2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="TextureButton2" type="TextureButton" parent="HBoxContainer/Powerup2"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("2_2ulux")
+stretch_mode = 0
+
+[node name="Label2" type="Label" parent="HBoxContainer/Powerup2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0.1, 0.1)
+layout_mode = 2
+size_flags_vertical = 2
+text = "description of the powerup"
+autowrap_mode = 3
+
+[node name="Powerup3" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="TextureButton3" type="TextureButton" parent="HBoxContainer/Powerup3"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("3_ul675")
+stretch_mode = 0
+
+[node name="Label3" type="Label" parent="HBoxContainer/Powerup3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0.1, 0.1)
+layout_mode = 2
+size_flags_vertical = 2
+text = "description of the powerup"
+autowrap_mode = 3
+
+[connection signal="pressed" from="HBoxContainer/Powerup1/TextureButton1" to="." method="_on_texture_button1_pressed"]
+[connection signal="pressed" from="HBoxContainer/Powerup2/TextureButton2" to="." method="_on_texture_button2_pressed"]
+[connection signal="pressed" from="HBoxContainer/Powerup3/TextureButton3" to="." method="_on_texture_button3_pressed"]

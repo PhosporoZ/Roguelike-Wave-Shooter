@@ -1,0 +1,141 @@
+[gd_scene load_steps=8 format=3 uid="uid://bf60qompjqixk"]
+
+[ext_resource type="Script" uid="uid://cf11r7dtuk5u1" path="res://scripts/power_up_selection.gd" id="1_2ulux"]
+[ext_resource type="Texture2D" uid="uid://cglq8cuhw3opq" path="res://assets/Icons/Attackspeed_icon.png" id="1_cq2xt"]
+[ext_resource type="Texture2D" uid="uid://q2emm82npqdl" path="res://assets/Icons/Crit-Icon.png" id="2_2ulux"]
+[ext_resource type="FontFile" uid="uid://bieeu1mypgls7" path="res://fonts/PixelOperator8-Bold.ttf" id="3_0ip3p"]
+[ext_resource type="Texture2D" uid="uid://dd6hiu8vqewjn" path="res://assets/Icons/Damage-Icon.png" id="3_ul675"]
+
+[sub_resource type="Shader" id="Shader_ul675"]
+code = "shader_type canvas_item;
+
+render_mode unshaded; // Keeps the color unaffected by lighting
+
+// Offset for the shadow in pixels
+uniform vec2 shadow_offset = vec2(333.0, 466.0);
+// Shadow color and transparency
+uniform vec4 shadow_color = vec4(0.0, 0.0, 0.0, 0.5);
+
+void fragment() {
+    // Convert texture size (ivec2) to vec2 for division
+    vec2 texture_size = vec2(textureSize(TEXTURE, 0));
+
+    // Calculate the size of a pixel in UV space
+    vec2 pixel_size = vec2(1.0) / texture_size;
+
+    // Calculate the shadow UV position
+    vec2 off_uv = UV + shadow_offset * pixel_size;
+    vec4 shadow_sample = texture(TEXTURE, off_uv);
+
+    // Fetch the main texture color
+    vec4 main_tex = texture(TEXTURE, UV);
+
+    // Composite: Blend the shadow behind the main texture
+    COLOR = mix(shadow_color * shadow_sample.a, main_tex, main_tex.a);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ip3p"]
+shader = SubResource("Shader_ul675")
+shader_parameter/shadow_offset = Vector2(4, 4)
+shader_parameter/shadow_color = Vector4(0, 0, 0, 0.5)
+
+[node name="PowerUpSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2ulux")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+material = SubResource("ShaderMaterial_0ip3p")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -336.0
+offset_top = -194.0
+offset_right = 336.0
+offset_bottom = 194.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 23
+
+[node name="Powerup1" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="TextureButton1" type="TextureButton" parent="HBoxContainer/Powerup1"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("1_cq2xt")
+stretch_mode = 0
+
+[node name="Label1" type="Label" parent="HBoxContainer/Powerup1"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0.1, 0.1)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("3_0ip3p")
+text = "description of the powerup"
+autowrap_mode = 3
+
+[node name="Powerup2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="TextureButton2" type="TextureButton" parent="HBoxContainer/Powerup2"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("2_2ulux")
+stretch_mode = 0
+
+[node name="Label2" type="Label" parent="HBoxContainer/Powerup2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0.1, 0.1)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("3_0ip3p")
+text = "description of the powerup"
+autowrap_mode = 3
+
+[node name="Powerup3" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="TextureButton3" type="TextureButton" parent="HBoxContainer/Powerup3"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("3_ul675")
+stretch_mode = 0
+
+[node name="Label3" type="Label" parent="HBoxContainer/Powerup3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0.1, 0.1)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("3_0ip3p")
+text = "description of the powerup"
+autowrap_mode = 3

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://xu4jwfl6ahr1"]
+
+[ext_resource type="Texture2D" uid="uid://buyqmo4tesbld" path="res://assets/Icons/Piercing-icon.png" id="1_37kl0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8uh7m"]
+shadow_size = 10
+shadow_offset = Vector2(4.81, 5.925)
+
+[node name="Button" type="Button"]
+texture_filter = 1
+offset_left = 192.0
+offset_top = 79.0
+offset_right = 535.0
+offset_bottom = 283.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_8uh7m")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 345.0
+offset_bottom = 203.0
+texture = ExtResource("1_37kl0")

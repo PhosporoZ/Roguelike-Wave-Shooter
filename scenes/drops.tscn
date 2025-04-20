@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckokyqvjkql8l"]
+
+[ext_resource type="Texture2D" uid="uid://c241lsgi3bp37" path="res://assets/chest.png" id="1_ev73d"]
+[ext_resource type="Script" uid="uid://73r7cpygesko" path="res://scripts/drops.gd" id="1_vb7ca"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vb7ca"]
+radius = 34.0147
+
+[node name="Area2D" type="Area2D"]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_vb7ca")
+
+[node name="Chest" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.455, 0.455)
+texture = ExtResource("1_ev73d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vb7ca")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
